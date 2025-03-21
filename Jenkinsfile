@@ -16,8 +16,8 @@ pipeline{
         stage('static code analysis'){
             steps{
                 script{
-                    withSonarQubeEnv(credentialsId: 'sonar-app') {
-                        sh "mvn clean package sonar:sonar"
+                    withSonarQubeEnv(credentialsId: 'sonar-key') {
+                        sh 'mvn clean package sonar:sonar'
                     }
                 }
             }
@@ -25,7 +25,7 @@ pipeline{
         stage('quality status'){
             steps{
                 script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-app'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-key'
                 }
             }
         }
